@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 import yaml
 from tqdm import tqdm
+import os
 
 from BLRun.genie3Runner import GENIE3Runner
 from BLRun.grnboost2Runner import GRNBoost2Runner
@@ -17,6 +18,8 @@ from BLRun.scsglRunner import SCSGLRunner
 from BLRun.sinceritiesRunner import SINCERITIESRunner
 from BLRun.singeRunner import SINGERunner
 from BLRun.pearsonRunner import PearsonRunner
+from BLRun.lagkanRunner import LagKANRunner
+from BLRun.sckanRunner import SCKANRunner
 
 RUNNERS = {
     'GENIE3':       GENIE3Runner,
@@ -33,6 +36,8 @@ RUNNERS = {
     'SCSGL':        SCSGLRunner,
     'SINCERITIES':  SINCERITIESRunner,
     'SINGE':        SINGERunner,
+    'LAGKAN':       LagKANRunner,
+    'SCKAN':        SCKANRunner,
 }
 
 
@@ -146,13 +151,27 @@ def build_runners(config):
     datasets        = get_datasets(input_settings)
     algorithms      = input_settings.get('algorithms', [])
 
+    # Allows multiple runners to run in parallel
+    chunk_id = int(os.environ.get("RUN_CHUNK", 0))
+    total_chunks = int(os.environ.get("TOTAL_CHUNKS", 1))
+    use_chunks = "RUN_CHUNK" in os.environ and "TOTAL_CHUNKS" in os.environ
+
     runners = []
+    global_idx = 0
+
     for dataset in datasets:
         for algo in algorithms:
             if not algo.get('should_run', [False])[0]:
                 continue
+                
+            if use_chunks and (global_idx % total_chunks != chunk_id):
+                global_idx += 1
+                continue
+
             params = algo.get('params', {})
             runners.append(build_runner(algo['algorithm_id'], algo['image'], params, dataset, input_settings, output_settings))
+            global_idx += 1
+
     return runners
 
 
@@ -234,6 +253,11 @@ def main():
     runners = build_runners(config)
 
     for runner in tqdm(runners):
+        # Skip completed runs instead of redoing them
+        if (runner.output_dir / "rankedEdges.csv").exists():
+            tqdm.write(f"Skipping completed run: {runner.running_message}")
+            continue
+
         tqdm.write(runner.running_message)
         runner.generateInputs()
         runner.run()

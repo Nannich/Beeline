@@ -29,13 +29,25 @@ class JUMP3Runner(Runner):
             # Acc. to JUMP3:
             # In input argument Time, the first time point of each time series must be 0.
             # Also has to be an integer!
-            newExpressionData['Time'] = PTData['PseudoTime']-PTData['PseudoTime'].min()
+
+            times = PTData.drop(columns=['Experiment'], errors='ignore').max(axis=1).fillna(0)
+            
+            # Normalize to a strict [0, 1] range
+            if times.max() != times.min():
+                normalized_times = (times - times.min()) / (times.max() - times.min())
+            else:
+                normalized_times = times - times.min()
+
+            # Scale to whole numbers for MATLAB
+            newExpressionData['Time'] = (normalized_times * 1000).round().astype(int)
+
             if 'Experiment' in PTData:
                 newExpressionData['Experiment'] = PTData['Experiment']
             else:
-                # generate it from cell number Ex_y, where x is experiment number
-                #newExpressionData['Experiment'] = [int(x.split('_')[0].strip('E')) for x in PTData.index.astype(str)]
                 newExpressionData['Experiment'] = 1
+
+            # Sort by pseudotime as required by JUMP3
+            newExpressionData = newExpressionData.sort_values(by='Time', ascending=True)
 
             newExpressionData.to_csv(JUMP3_EXPRESSION_FILE,
                                  sep = ',', header  = True, index = False)

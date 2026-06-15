@@ -4,6 +4,11 @@ __pycache__
 
 # BEELINE specific files
 configs/
-outputs/
 inputs/
+plots/
 plotting_examples/
+
+**/working_dir/
+
+*.pth
+*.npy

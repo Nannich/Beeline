@@ -132,6 +132,29 @@ class Runner(ABC):
         if not isinstance(append, bool):
             raise TypeError(f"append must be bool, got {type(append)}")
 
+        if "docker run" in cmd:
+            flags = [
+                "--user root",
+                "--network=host",
+                "-e DASK_DISTRIBUTED__COMM__TIMEOUTS__CONNECT=120",
+                "-e DASK_DISTRIBUTED__COMM__TIMEOUTS__TCP=120",
+                "-e DASK_DISTRIBUTED__COMM__CONNECT_TIMEOUT=120",
+                "-e DASK_DISTRIBUTED__COMM__TCP_TIMEOUT=120",
+                "-e DASK_DISTRIBUTED__DASHBOARD__STATUS__PORT=0"
+            ]
+            
+            if "arboreto" in cmd.lower() or "runarboreto" in cmd.lower():
+                flags.extend([
+                    "-e OMP_NUM_THREADS=1",
+                    "-e OPENBLAS_NUM_THREADS=1",
+                    "-e MKL_NUM_THREADS=1",
+                    "-e NUMEXPR_NUM_THREADS=1"
+                ])
+                
+            env_flags = " ".join(flags)
+            
+            cmd = cmd.replace("docker run", f"timeout 12h docker run {env_flags} ", 1)
+
         mode = 'a' if append else 'w'
         with open(self.output_dir / 'output.txt', mode) as f:
             proc = subprocess.Popen(
