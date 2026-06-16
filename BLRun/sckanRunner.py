@@ -75,8 +75,9 @@ class SCKANRunner(Runner):
         grn = build_grn()
 
         # Flatten the matrix into list of edges
-        df_grn = pd.DataFrame(grn, index=gene_names, columns=gene_names)
+        df_grn = pd.DataFrame(grn.T, index=gene_names, columns=gene_names)
         flat_edges = df_grn.stack().reset_index()
         flat_edges.columns = ['Gene1', 'Gene2', 'EdgeWeight']
+        flat_edges = flat_edges.sort_values(by='EdgeWeight', ascending=False)
 
         self._write_ranked_edges(flat_edges)
