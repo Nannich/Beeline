@@ -27,6 +27,9 @@ class LagKANRunner(Runner):
         # Generate matrix inputs for lagKAN
         raw_counts = expression_df.values.T             # Shape: (n_cells, n_genes)
 
+        # log1p normalize counts
+        log_counts = np.log1p(raw_counts)
+
         # Replace na with 0
         pseudotime = pt_df.fillna(0.0).values           # Shape: (n_cells, n_lineages)
 
@@ -42,11 +45,10 @@ class LagKANRunner(Runner):
 
         # Execute the network inference
         ranked_edges_df = lagkan.infer_grn(
-            raw_counts=raw_counts,
+            log_counts=log_counts,
             pseudotime=pseudotime,
             lineage_assignment=lineage_assignment,
             gene_names=gene_names,
-            dt=None,
             epochs=epochs,
             lr=lr,
             lamb_l1=lamb_l1

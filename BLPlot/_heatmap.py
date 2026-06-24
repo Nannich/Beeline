@@ -112,7 +112,7 @@ def _draw_section(
         # Column header — horizontal, centred above data rows
         ax.text(
             cx, n_algos + 1, dataset_ids[col_idx],
-            fontsize=12, rotation=0, ha='center', va='center',
+            fontsize=9, rotation=0, ha='center', va='center',
             bbox=dict(boxstyle='round', ec=(1, 1, 1, 0), fc=(1, 1, 1, 0)),
         )
 

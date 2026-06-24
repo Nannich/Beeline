@@ -153,7 +153,7 @@ class Runner(ABC):
                 
             env_flags = " ".join(flags)
             
-            cmd = cmd.replace("docker run", f"timeout 12h docker run {env_flags} ", 1)
+            cmd = cmd.replace("docker run", f"timeout 400h docker run {env_flags} ", 1)
 
         mode = 'a' if append else 'w'
         with open(self.output_dir / 'output.txt', mode) as f:

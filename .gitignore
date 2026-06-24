@@ -7,7 +7,7 @@ configs/
 inputs/
 plots/
 plotting_examples/
-
+outputs/
 **/working_dir/
 
 *.pth

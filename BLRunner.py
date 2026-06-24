@@ -255,8 +255,8 @@ def main():
     for runner in tqdm(runners):
         # Skip completed runs instead of redoing them
         if (runner.output_dir / "rankedEdges.csv").exists():
-            tqdm.write(f"Skipping completed run: {runner.running_message}")
-            continue
+           tqdm.write(f"Skipping completed run: {runner.running_message}")
+           continue
 
         tqdm.write(runner.running_message)
         runner.generateInputs()

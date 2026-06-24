@@ -1,0 +1,23 @@
+input_settings:
+  input_dir: "inputs/scRNA-Seq"
+  
+  datasets:
+    - dataset_id: "mESC-500/mESC-500-CellType"
+      nickname: "mESC (Cell-Type)"
+      groundTruthNetwork: "mESC-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "mESC-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+  algorithms:
+    - algorithm_id: "LAGKAN"
+      image: "local"
+      should_run: [true]
+      params:
+        dt: [0.08]
+        epochs: [140]
+        lamb_l1: [0.02]
+
+output_settings:
+  output_dir: "outputs/scRNA-Seq"

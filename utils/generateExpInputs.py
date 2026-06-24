@@ -292,6 +292,11 @@ def main():
 
     if opts.netFile is not None:
         net_df = pd.read_csv(opts.netFile)
+        
+        # Standardize genes to uppercase to match the expression data
+        net_df['Gene1'] = net_df['Gene1'].str.upper()
+        net_df['Gene2'] = net_df['Gene2'].str.upper()
+        
         net_df = filter_network(net_df, variable_genes)
         net_df.to_csv(opts.outPrefix + '-network.csv', index=False)
         all_nodes = set(net_df.Gene1.unique()).union(set(net_df.Gene2.unique()))
