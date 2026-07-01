@@ -50,7 +50,7 @@ def _draw_section(
     dataset_ids: List[str],
     section_label: str,
     switch_text: bool = False,
-    show_all_values: bool = False,
+    show_all_values: bool = True,
 ) -> None:
     """
     Draw one heatmap section onto ax using flat square patches.

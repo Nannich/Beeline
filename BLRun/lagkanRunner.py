@@ -1,8 +1,7 @@
-import os
 import pandas as pd
 import numpy as np
 import lagkan
-import time
+from pathlib import Path
 
 from BLRun.runner import Runner
 
@@ -42,6 +41,7 @@ class LagKANRunner(Runner):
         epochs = int(self.params.get('epochs', 400))
         lr = float(self.params.get('lr', 0.01))
         lamb_l1 = float(self.params.get('lamb_l1', 0.02))
+        dt = float(self.params.get('dt', 0.08))
 
         # Execute the network inference
         ranked_edges_df = lagkan.infer_grn(
@@ -51,10 +51,16 @@ class LagKANRunner(Runner):
             gene_names=gene_names,
             epochs=epochs,
             lr=lr,
-            lamb_l1=lamb_l1
+            lamb_l1=lamb_l1,
+            dt=dt
         )
 
-        # Save the raw output table inside self.working_dir
+        dataset_id = self.input_dir.parent.name
+        run_id = self.input_dir.name
+        
+        checkpoint_dir = Path.cwd() / "outputs" / "lagkan_checkpoints" / f"{dataset_id}_{run_id}"
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+
         ranked_edges_df.to_csv(self.working_dir / "raw_predictions.tsv", sep="\t", index=False)
 
     def parseOutput(self):

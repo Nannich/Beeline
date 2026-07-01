@@ -1,0 +1,154 @@
+input_settings:
+  input_dir: "inputs/scRNA-Seq"
+  
+  datasets:
+    - dataset_id: "hESC-500-CellType"
+      nickname: "hESC"
+      groundTruthNetwork: "hESC-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "hESC-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+    - dataset_id: "hHep-500-CellType"
+      nickname: "hHep"
+      groundTruthNetwork: "hHep-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "hHep-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+    - dataset_id: "mESC-500-CellType"
+      nickname: "mESC"
+      groundTruthNetwork: "mESC-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "mESC-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+    - dataset_id: "mHSC-E-500-CellType"
+      nickname: "mHSC-E"
+      groundTruthNetwork: "mHSC-E-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "mHSC-E-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+    - dataset_id: "mHSC-L-500-CellType"
+      nickname: "mHSC-L"
+      groundTruthNetwork: "mHSC-L-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "mHSC-L-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+    - dataset_id: "mHSC-GM-500-CellType"
+      nickname: "mHSC-GM"
+      groundTruthNetwork: "mHSC-GM-500-CellType-network.csv"
+      runs:
+        - run_id: "."
+          exprData: "mHSC-GM-500-CellType-ExpressionData.csv"
+          pseudoTimeData: "PseudoTime.csv"
+
+  algorithms:
+    # --- Step Size (dt) Variations ---
+    - algorithm_id: "DT_0_0"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.0] }
+    
+    - algorithm_id: "DT_0_04"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.04] }
+
+    - algorithm_id: "DT_0_08"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "DT_0_12"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.12] }
+
+    - algorithm_id: "DT_0_2"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.2] }
+
+    - algorithm_id: "DT_0_3"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.3] }
+
+    # --- Learning Rate Variations ---
+    - algorithm_id: "LR_0_001"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.001], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "LR_0_01"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "LR_0_02"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.02], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "LR_0_05"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.05], lamb_l1: [0.02], dt: [0.08] }
+
+    # --- L1 Regularization Variations ---
+    - algorithm_id: "L1_0_00"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.0], dt: [0.08] }
+
+    - algorithm_id: "L1_0_01"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.01], dt: [0.08] }
+
+    - algorithm_id: "L1_0_02"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "L1_0_03"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.03], dt: [0.08] }
+
+    - algorithm_id: "L1_0_04"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.04], dt: [0.08] }
+
+    # --- Epoch Count Variations ---
+    - algorithm_id: "EP_200"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [200], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "EP_400"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "EP_600"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [600], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+    - algorithm_id: "EP_800"
+      image: "local"
+      should_run: [true]
+      params: { epochs: [800], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+output_settings:
+  output_dir: "outputs/scRNA-Seq-P"

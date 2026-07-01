@@ -40,6 +40,22 @@ RUNNERS = {
     'SCKAN':        SCKANRunner,
 }
 
+# Dynamic suffix loops updated to register keys without the LAGKAN_ prefix
+dt_suffixes = ["0_0", "0_04", "0_08", "0_12", "0_2", "0_3"]
+for suffix in dt_suffixes:
+    RUNNERS[f"DT_{suffix}"] = LagKANRunner
+
+lr_suffixes = ["0_001", "0_01", "0_02", "0_05"]
+for suffix in lr_suffixes:
+    RUNNERS[f"LR_{suffix}"] = LagKANRunner
+
+l1_suffixes = ["0_00", "0_01", "0_02", "0_03", "0_04"]
+for suffix in l1_suffixes:
+    RUNNERS[f"L1_{suffix}"] = LagKANRunner
+
+ep_suffixes = ["200", "400", "600", "800"]
+for suffix in ep_suffixes:
+    RUNNERS[f"EP_{suffix}"] = LagKANRunner
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -254,9 +270,9 @@ def main():
 
     for runner in tqdm(runners):
         # Skip completed runs instead of redoing them
-        if (runner.output_dir / "rankedEdges.csv").exists():
-           tqdm.write(f"Skipping completed run: {runner.running_message}")
-           continue
+        #if (runner.output_dir / "rankedEdges.csv").exists():
+        #   tqdm.write(f"Skipping completed run: {runner.running_message}")
+        #   continue
 
         tqdm.write(runner.running_message)
         runner.generateInputs()

@@ -2,13 +2,14 @@ input_settings:
   input_dir: "inputs/scRNA-Seq"
   
   datasets:
-    - dataset_id: "hESC"
-      nickname: "hESC-500"
-      groundTruthNetwork: "hESC-500-network.csv"
+    - dataset_id: "mHSC-L-500-CellType"
+      nickname: "mHSC-L"
+      groundTruthNetwork: "mHSC-L-500-CellType-network.csv"
       runs:
         - run_id: "."
-          exprData: "hESC-500-ExpressionData.csv"
+          exprData: "mHSC-L-500-CellType-ExpressionData.csv"
           pseudoTimeData: "PseudoTime.csv"
+
 
   algorithms:
     - algorithm_id: "LAGKAN"
@@ -16,8 +17,8 @@ input_settings:
       should_run: [true]
       params:
         dt: [0.08]
-        epochs: [140]
+        epochs: [3]
         lamb_l1: [0.02]
 
 output_settings:
-  output_dir: "outputs/scRNA-Seq"
+  output_dir: "outputs/scRNA-Seq-P"

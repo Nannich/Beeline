@@ -163,13 +163,56 @@ input_settings:
               - run_id: "dyn-TF-2000/dyn-TF-2000-10"
 
     algorithms:
-        - algorithm_id: "LAGKAN"
+        - algorithm_id: "DT_0_0"
           image: "local"
           should_run: [true]
-          params:
-              epochs: [400]
-              lr: [0.01]
-              lamb_l1: [0.02]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.0] }
+        
+        - algorithm_id: "DT_0_02"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.02] }
+
+        - algorithm_id: "DT_0_04"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.04] }
+
+        - algorithm_id: "DT_0_06"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.06] }
+
+        - algorithm_id: "DT_0_08"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.08] }
+
+        - algorithm_id: "DT_0_1"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.1] }
+        
+        - algorithm_id: "DT_0_2"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.2] }
+
+        - algorithm_id: "DT_0_3"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.3] }
+
+        - algorithm_id: "DT_0_4"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.4] }
+
+        - algorithm_id: "DT_0_5"
+          image: "local"
+          should_run: [true]
+          params: { epochs: [400], lr: [0.01], lamb_l1: [0.02], dt: [0.5] }
+      
 
 output_settings:
     output_dir: "outputs"
