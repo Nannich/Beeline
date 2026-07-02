@@ -36,4 +36,6 @@ python BLPlotter.py -c <path_to_config_file> -o ./plots --all
 | **Figure 5** | Time Delay Sweep | `dt.yaml` |
 | **Figure 6** | Benchmarking lagKAN | `all.yaml` |
 | **Figure 7** | EPR comparison on scRNA-seq datasets (only lagKAN values) | `scRNAseq.yaml` |
+| **Figure 17** | EPR comparison on scRNA-seq datasets (only lagKAN values) | `scRNAseq-hyper.yaml` |
+
 ```

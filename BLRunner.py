@@ -45,15 +45,15 @@ dt_suffixes = ["0_0", "0_04", "0_08", "0_12", "0_2", "0_3"]
 for suffix in dt_suffixes:
     RUNNERS[f"DT_{suffix}"] = LagKANRunner
 
-lr_suffixes = ["0_001", "0_01", "0_02", "0_05"]
+lr_suffixes = ["0_001", "0_002", "0_01", "0_02", "0_05"]
 for suffix in lr_suffixes:
     RUNNERS[f"LR_{suffix}"] = LagKANRunner
 
-l1_suffixes = ["0_00", "0_01", "0_02", "0_03", "0_04"]
+l1_suffixes = ["0_0", "0_00", "0_01", "0_02", "0_03", "0_04"]
 for suffix in l1_suffixes:
     RUNNERS[f"L1_{suffix}"] = LagKANRunner
 
-ep_suffixes = ["200", "400", "600", "800"]
+ep_suffixes = ["100", "200", "300", "400", "500", "600", "800"]
 for suffix in ep_suffixes:
     RUNNERS[f"EP_{suffix}"] = LagKANRunner
 
